@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h1> Question Form </h1>
+
+<div>
+
+    <form action="question.php" method="post">
+
+
+        <div id="data">
+
+            <label for="questionName">* Question Name: </label>
+            <input type="text" name="questionName" id="questionName"><span class="error"><?php echo $NameError; ?></span> <br><br>
+
+            <label for="questionBody">* Question Body: </label>
+            <input type="text" name="questionBody" id="questionBody"><span class="error"><?php echo $bodyError; ?></span> <br><br>
+
+            <label for="questionSkills">* Question Skills: </label>
+            <input type="text" name="questionSkills" id="questionSkills"><span class="error"><?php echo $skillError; ?></span> <br><br>
+        </div>
+        <p><span class="error">* required fields</span></p>
+        <br>
+
+        <label> &nbsp;</label>
+
+        <input type="submit" value="Submit">
+
+
+        <button type="button"><a href="login.html">Login Page</a></button>
+        <br>
+        <button type="button"><a href="questions.html">Questions</a></button>
+        <br>
+        <button type="button"><a href="registration.html">Registration</a></button>
+
+
+
+    </form>
+
+</div>
+</body>
+</html>
