@@ -1,6 +1,6 @@
 <?php
 
-function validate_login($email,$password)
+function validate_display($email,$password)
 {
     global $db;
     $query='SELECT * FROM accounts WHERE email=:email AND password=:password';
@@ -11,9 +11,9 @@ function validate_login($email,$password)
     $statement->execute();
 
     $user=$statement->fetch();
-    $isValidLogin=count($user)>0;
+    $isValiddisplay=count($user)>0;
 
-    if(!$isValidLogin)
+    if(!$isValiddisplay)
     {
         $statement->closeCursor();
         return false;
@@ -44,7 +44,7 @@ return $firstname . '' .$secondname;
 }
 
 
-function new_user($email,$firstname,$lastname,$birthday, $password)
+function new_user($email,$fname,$lname,$birthday, $password)
 {
     global $db;
     $query = 'INSERT INTO accounts
@@ -55,12 +55,11 @@ VALUES
     $statement=$db->prepare($query);
 
     $statement->bindValue(':email',$email);
-    $statement->bindValue(':fname',$firstname);
-    $statement->bindValue(':lname',$lastname);
+    $statement->bindValue(':fname',$fname);
+    $statement->bindValue(':lname',$lname);
     $statement->bindValue('birthday', $birthday);
     $statement->bindValue(':password',$password);
 
     $statement->execute();
     $statement->closeCursor();
 }
-
