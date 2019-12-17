@@ -1,10 +1,10 @@
 <?php
 
-function get_users_questions ($ownerid)
+function get_users_question ($ownerid)
 {
 global $db;
 
-    $query = ' SELECT * FROM questions WHERE ownerid = :ownerid';
+    $query = ' SELECT * FROM question WHERE ownerid = :ownerid';
 
     $statement = $db->prepare($query);
 
@@ -17,7 +17,7 @@ global $db;
     return $questions;
 }
 
-function new_questions($userid,$questionName,$questionBody,$questionSkills)
+function new_question($userid,$questionName,$questionBody,$questionSkills)
 {
     global $db;
     $query='INSERT INTO questions
@@ -37,13 +37,15 @@ VALUES
 
 }
 
+
+
+
 function delete_question($id)
 {
     global $db;
-    $query="DELETE FROM questions WHERE id=:id";
+    $query="DELETE FROM question WHERE id=:id";
     $statement=$db->prepare($query);
     $statement->bindValue(':id',$id);
     $statement->execute();
     $statement->closeCursor();
 }
-
