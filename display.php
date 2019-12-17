@@ -10,15 +10,16 @@
 </head>
 <body>
 
-<div>
-    <h1>Login Form</h1>
-</div>
 
 <main>
 <div class="loginForm">
     <form action="index.php" method="post">
 
-<div>
+      
+            <h1>Login Form</h1>
+
+
+        <div>
 
         <input type="hidden" name="action" value="validate_display">
 
