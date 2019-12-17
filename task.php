@@ -10,11 +10,13 @@ function get_username($userid)
     $names=$statement->fetch();
 
     $statement->closeCursor();
-    $fname=$names['fname'];
-    $lname=$names['lname'];
-    return $fname . ' ' .$lname;
+    $firstName=$names['fname'];
+    $lastName=$names['lname'];
+    return $firstName . ' ' .$lastName;
 }
-function get_questions($userid){
+
+function get_user_question($userid)
+{
     global $db;
     $query = 'SELECT * FROM questions where ownerid=:id';
     $statement = $db->prepare($query);
