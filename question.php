@@ -1,93 +1,49 @@
-<?php
-
-require('pdo.php');
-//require("task.php");
-
-//$userid=filter_input(INPUT_GET,'userid');
-$questionName=filter_input(INPUT_POST,'questionName');
-$questionBody=filter_input(INPUT_POST,'questionBody');
-$questionSkills=filter_input(INPUT_POST,'questionSkills');
-
-session_start();
-$userid=$_SESSION['userid'];
-$doubleCheckSkills=explode(',',$questionSkills);
-
-
-if ($_SERVER["REQUEST_METHOD"]=="POST")
-{
-    $Validate=true;
-    if (empty($questionName))
-    {
-        $NameError = "Must provide a Question Name.";
-        $Validate=false;
-    }
-    elseif(strlen($questionName) < 3)
-    {
-        $NameError= "Question Name must be 3 characters or more.";
-        $Validate=false;
-    }
-    if (empty($questionBody))
-    {
-        $bodyError = "Must provide a Question Body.";
-        $Validate=false;
-    }
-    elseif(strlen($questionBody) >= 500)
-    {
-        $bodyError= "Question Body cannot be more than 500 characters.";
-        $Validate=false;
-    }
-    if (empty($questionSkills))
-    {
-        $skillError = "Must provide skills.";
-        $Validate=false;
-    }
-    elseif(count($doubleCheckSkills) < 2)
-    {
-        $skillError= "Must provide 2 or more skills.";
-        $Validate=false;
-    }
-
-
-    if($Validate==true)
-    {
-        $query = 'INSERT INTO questions
-                    (ownerid,title,body,skills)
-                VALUES
-                (:ownerid,:title,:body,:skills)';
-
-        $statement = $db->prepare($query);
-
-        $statement->bindValue(':ownerid',$userid);
-        $statement->bindValue(':questionName',$questionName);
-        $statement->bindValue(':questionBody',$questionBody);
-        $statement->bindValue(':questionSkills',$questionSkills);
-
-        $statement->execute();
-        $statement->closeCursor();
-
-
-    }
-
-}
-?>
-
-
+<!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="questionForm">
 
-<head><title> Question Form</title></head>
 
-<h1> Questionnaire </h1>
-<div>
-    Question Name = <?php if(!$NameError) echo $questionName; ?>
-    <span <span class="error"><?php echo $NameError; ?></span>
-</div>
-<div>
-    Question Body = <?php if(!$bodyError) echo $questionBody; ?>
-    <span <span class="error"><?php echo $bodyError; ?></span>
-</div>
-<div>
-    Question Skills = <?php if (!$skillError) echo $questionSkills; ?>
-    <span <span class="error"><?php echo $skillError; ?></span>
-</div>
 
+<h1> Question Form </h1>
+    <form action="index.php" method="post">
+        <input type="hidden" name="action" value="create_new_question">
+
+        <div>
+
+        <class="form-group">
+            <label for="questionName"> Question Name </label>
+            <input type="text" class="form-control" name="questionName" id="questionName">
+
+<br><br>
+
+
+        <class="form-group">
+            <label for="questionBody"> Question Body </label>
+            <input type="text" class="form-control" name="questionBody" id="questionBody">
+<br><br>
+
+        <class="form-group">
+            <label for="questionSkills"> Question Skills </label>
+            <input type="text" class="form-control" name="questionSkills" id="questionSkills">
+
+        </div>
+
+    </form>
+
+
+    <label> &nbsp;</label>
+    <button type="button"><a href="display.php">Login Page</a></button>
+    <br>
+    <button type="button"><a href="question.php">Questions</a></button>
+    <br>
+    <button type="button"><a href="registration.php">Registration</a></button>
+
+</div>
+</body>
 </html>
