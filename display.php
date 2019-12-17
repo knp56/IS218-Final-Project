@@ -1,80 +1,57 @@
-<?php
-
-require("pdo.php");
-
-$emailError = $passwordError ="";
-
-$email= filter_input(INPUT_POST, 'email');
-$password= filter_input(INPUT_POST, 'password');
-$doubleCheck=strpos($email,'@');
-$Validate=true;
-if ($_SERVER["REQUEST_METHOD"]== "POST")
-{
-    if (empty($email))
-    {
-        $emailError="Must type in a valid email.";
-        $Validate=false;
-    }
-    elseif ($doubleCheck == false)
-    {
-        $emailError = "Email is not valid.";
-        $Validate=false;
-    }
-    if (empty($password))
-    {
-        $passwordError="Must type in a valid password.";
-        $Validate=false;
-    }
-    elseif (strlen($password)<=8)
-    {
-        $passwordError="Password must be at least 8 characters long.";
-        $Validate=false;
-    }
-
-if($Validate==true)
-{
-    $query = "SELECT * FROM accounts WHERE email = :email AND password = :password" ;
-
-    $statement=$db->prepare($query);
-
-    $statement->bindValue(':email',$email);
-    $statement->bindValue(':password',$password);
-
-    $statement->execute();
-    $accounts=$statement->fetchAll();
-    $statement->closeCursor();
-
-
-    if ($Validate)
-
-    {
-        $userID=$accounts[0]['id'];
-        header("Location: ../questList.php?userID=$userID");
-    }
-    else
-        {
-        header('Location: ../registration.html');
-    }
-
-}
-
-}
-?>
-
+<!DOCTYPE html>
 <html lang="en">
 
-<head><title> Login Data </title></head>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
 <body>
 
-<h2>Login Form </h2>
 <div>
-    Email: <?php echo $email; ?>
-    <span <span class="error"> <?php echo $emailError;?></span>
-</div>
-<div>
-    Password: <?php if (!$passwordError) echo $password; ?>
-    <span <span class="error"> <?php echo $passwordError;?></span>
+    <h1>Login Form</h1>
 </div>
 
+<main>
+<div class="loginForm">
+    <form action="index.php" method="post">
+
+<div>
+
+        <input type="hidden" name="action" value="validate_display">
+
+         <class="form-group">
+            <label for="email">Email </label>
+            <input type="email" class="form-control" name="email" id="email">
+
+        <br><br>
+
+        <class="form-group">
+            <label for="password"> Password </label>
+            <input type="password" class="form-control" name="password" id="password">
+
+
+
+        <button type="submit" value="login"> Submit </button>
+
+
+
+
+        <p> Click below to Register </p>
+        <button type="button"><a href="registration.php">Registration</a></button>
+<br><br><br><br>
+        <label> &nbsp;</label>
+        <button type="button"><a href="display.php">Login Page</a></button>
+        <br>
+        <button type="button"><a href="question.php">Questions</a></button>
+        <br>
+
+</div>
+
+    </form>
+</div>
+</main>
 </body>
 </html>
