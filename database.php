@@ -1,11 +1,10 @@
 <?php
-
 $username='bcn3_proj';
 $password='w9hLvRFP';
 $dsn="mysql:host=sql1.njit.edu;dbname=$username";
 try
 {
-$db= new PDO($dsn,$username,$password);
+    $db= new PDO($dsn,$username,$password);
 }
 catch (PDOException $e)
 {
@@ -13,4 +12,3 @@ catch (PDOException $e)
     include('database_error.php');
     exit();
 }
-
