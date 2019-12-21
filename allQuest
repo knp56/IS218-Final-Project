@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> All Questions</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+<main>
+
+    <h1> Question <?php echo get_username($userid);?>
+    </h1>
+
+
+    <form action="index.php" method="get">
+        <input type="hidden" name="action" value="questList">
+        <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+        <input type="submit" value="Your questions" class="btn">
+    </form>
+
+
+    <a href=".?action=questList&userid=><?php echo $userid ?>"> <input type="submit" value="Add A New Question"></a>
+
+    <table align="center">
+        <tr>
+            <th>Id</th>
+            <th>User</th>
+            <th>Name</th>
+            <th>Body</th>
+            <th>Skills</th>
+            <th>View</th>
+        </tr>
+
+        <?php foreach($questionId as $question): ?>
+        <tr>
+            <td><?php echo $question['id'];?></td>
+            <td><?php echo $user = get_username($question['ownerid']);?></td>
+            <td><?php echo $question['title'];?></td>
+            <td><?php echo $question['body'];?></td>
+            <td><?php echo $question['skills'];?></td>
+            <td>
+                <form>
+                    <input type="hidden" name="action" value="singleQuest">
+                    <input type="hidden" name="questionId" value="<?php echo $question['id'];?>">
+                    <input type="hidden" name="userid" value="<?php echo $userid?>">
+                    <button> <input type="submit" class="btn edit" value="View"> </button>
+                </form>
+            </td>
+
+        </tr>
+<?php endforeach;?>
+    </table>
+    <a href=".?action=display"><input type="button" value="LogOut"></a>
+
+    <br>
+    <label> &nbsp;</label>
+    <button type="button"><a href="display.php">Login Page</a></button>
+    <br>
+    <button type="button"><a href="question.php">Questions</a></button>
+    <br>
+    <button type="button"><a href="registration.php">Registration</a></button>
+</main>
+</body>
+</html>
